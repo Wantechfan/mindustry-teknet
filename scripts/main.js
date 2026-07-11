@@ -2,7 +2,7 @@ Events.on(ClientLoadEvent, () => {
     const MultiMesh = Packages.mindustry.graphics.g3d.MultiMesh;
     const NoiseMesh = Packages.mindustry.graphics.g3d.NoiseMesh;
     const HexSkyMesh = Packages.mindustry.graphics.g3d.HexSkyMesh;
-    
+
     const teknet = new Planet("teknet", Planets.sun, 1.2, 3); 
     teknet.alwaysUnlocked = true;
     teknet.accessible = true;
@@ -32,20 +32,25 @@ Events.on(ClientLoadEvent, () => {
     teknet.allowWaves = true;
     teknet.prebuildBase = false;
     teknet.showRtsAIRule = true;
-    teknet.defaultCore = Blocks.coreShard;
+
+    teknet.defaultCore = Blocks.coreShard; 
+
     teknet.ruleSetter = r => {
         r.coreDestroyClear = true;
     };
 
     teknet.meshLoader = () => {
-        return new MultiMesh(
-            new NoiseMesh(teknet, 7, 5, 1.229, 4, 1.1, 1.0, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF")),
-            new NoiseMesh(teknet, 94, 5, 1.22, 4, 0.6, 1.0, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B")),
-            new NoiseMesh(teknet, 101, 6, 1.2441, 5, 0.8, 1.0, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA")),
-            new NoiseMesh(teknet, 69, 5, 1.212, 4, 1.0, 0.75, 1.0, Color.valueOf("42693A"), Color.valueOf("5F8A4A")),
-            new NoiseMesh(teknet, 19, 5, 1.247, 5, 1.1, 1.0, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"))
-        );
+        let meshArray = java.lang.reflect.Array.newInstance(Packages.mindustry.graphics.g3d.Mesh, 5);
+        
+        meshArray[0] = new NoiseMesh(teknet, 7, 5, 1.229, 4, 1.1, 1.0, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF"));
+        meshArray[1] = new NoiseMesh(teknet, 94, 5, 1.22, 4, 0.6, 1.0, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B"));
+        meshArray[2] = new NoiseMesh(teknet, 101, 6, 1.2441, 5, 0.8, 1.0, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA"));
+        meshArray[3] = new NoiseMesh(teknet, 69, 5, 1.212, 4, 1.0, 0.75, 1.0, Color.valueOf("42693A"), Color.valueOf("5F8A4A"));
+        meshArray[4] = new NoiseMesh(teknet, 19, 5, 1.247, 5, 1.1, 1.0, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"));
+
+        return new MultiMesh(meshArray);
     };
+
     teknet.cloudMeshLoader = () => {
         return new HexSkyMesh(teknet, 6, 0.05, 0.16, 2, Color.valueOf("ffffffaa"), 0.45, 1.0, 0.41);
     };
