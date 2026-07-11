@@ -1,11 +1,9 @@
 const teknetGenerator = extend(PlanetGenerator, {
-    generateSector(sector) {
-    },
+    generateSector(sector) {},
     getHeight(position) {
         return 0; 
     },
-    generateTiles(tiles) {
-    }
+    generateTiles(tiles) {}
 });
 
 const teknet = extend(Planet, "teknet", Planets.sun, 1, {
@@ -41,12 +39,14 @@ const teknet = extend(Planet, "teknet", Planets.sun, 1, {
     defaultCore: Blocks.coreShard,
     enemyCoreSpawnReplace: false,
     updateLighting: true,
-    launchCandidates: Seq.with(),
+    launchCandidates: [],
     itemWhitelist: Seq.with(Items.copper) 
 });
 
 teknet.generator = teknetGenerator;
 teknet.meshLoader = () => teknet.mesh; 
+teknet.grid = PlanetGrid.create(3);
+teknet.initialize();
 
 Events.on(ContentInitEvent, e => {
     let meshList = [];
