@@ -73,7 +73,7 @@ Events.on(ContentInitEvent, e => {
     };
     meshList.push(new NoiseMesh(
         teknet, props.seed, props.divisions, props.radius, props.octaves,
-        box.persistence, props.scale, props.mag, props.color1, props.color2,
+        props.persistence, props.scale, props.mag, props.color1, props.color2,
         props.colorOct, props.colorPersi, props.colorScale, props.colorThres
     ));
     //#endregion
