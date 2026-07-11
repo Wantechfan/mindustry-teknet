@@ -1,4 +1,12 @@
-const teknetGenerator = extend(SerpuloPlanetGenerator, {});
+const teknetGenerator = extend(PlanetGenerator, {
+    generateSector(sector) {
+    },
+    getHeight(position) {
+        return 0; 
+    },
+    generateTiles(tiles) {
+    }
+});
 
 const teknet = extend(Planet, "teknet", Planets.sun, 1, {
     alwaysUnlocked: true,
@@ -38,6 +46,7 @@ const teknet = extend(Planet, "teknet", Planets.sun, 1, {
 });
 
 teknet.generator = teknetGenerator;
+teknet.meshLoader = () => teknet.mesh; 
 
 Events.on(ContentInitEvent, e => {
     let meshList = [];
@@ -64,7 +73,7 @@ Events.on(ContentInitEvent, e => {
     };
     meshList.push(new NoiseMesh(
         teknet, props.seed, props.divisions, props.radius, props.octaves,
-        props.persistence, props.scale, props.mag, props.color1, props.color2,
+        box.persistence, props.scale, props.mag, props.color1, props.color2,
         props.colorOct, props.colorPersi, props.colorScale, props.colorThres
     ));
     //#endregion
