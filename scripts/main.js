@@ -1,4 +1,7 @@
 Events.on(ContentInitEvent, e => {
+  let teknetGenerator = extend(SerpuloPlanetGenerator, {
+  });
+
   let teknet = extend(Planet, "teknet", Planets.sun, 1, {
     alwaysUnlocked: true,
     accessible: true,
@@ -32,11 +35,14 @@ Events.on(ContentInitEvent, e => {
     defaultCore: Blocks.coreShard,
     enemyCoreSpawnReplace: false,
     updateLighting: true,
-    launchCandidates: Seq.with(), 
+    launchCandidates: Seq.with(),
     itemWhitelist: Seq.with(
       Items.copper
     )
   });
+
+  // Attach the generator to the planet
+  teknet.generator = teknetGenerator;
 
   let props = {
     seed: 0,
@@ -61,7 +67,7 @@ Events.on(ContentInitEvent, e => {
     seed: 7,
     divisions: 5,
     radius: 1.229,
-    octaves: 4, 
+    octaves: 4,
     persistence: 1.1,
     scale: 1,
     mag: 1,
@@ -84,7 +90,7 @@ Events.on(ContentInitEvent, e => {
     seed: 94,
     divisions: 5,
     radius: 1.22,
-    octaves: 4, 
+    octaves: 4,
     persistence: 0.6,
     scale: 1,
     mag: 0.5,
@@ -107,7 +113,7 @@ Events.on(ContentInitEvent, e => {
     seed: 101,
     divisions: 6,
     radius: 1.2441,
-    octaves: 5, 
+    octaves: 5,
     persistence: 0.8,
     scale: 1,
     mag: 0,
@@ -153,7 +159,7 @@ Events.on(ContentInitEvent, e => {
     seed: 19,
     divisions: 5,
     radius: 1.247,
-    octaves: 4, 
+    octaves: 4,
     persistence: 1.1,
     scale: 1,
     mag: 0.5,
@@ -189,7 +195,11 @@ Events.on(ContentInitEvent, e => {
   ));
   //#endregion
 
-  teknet.mesh = new MultiMesh(
-    meshList[0], meshList[1], meshList[2], meshList[3], meshList[4], meshList[5]
-  );
+  // 2. Convert JavaScript array safely into a Java Array to prevent MultiMesh crashes
+  let javaMeshArray = java.lang.reflect.Array.newInstance(GenericMesh, meshList.length);
+  for(let i = 0; i < meshList.length; i++){
+    javaMeshArray[i] = meshList[i];
+  }
+
+  teknet.mesh = new MultiMesh(javaMeshArray);
 });
