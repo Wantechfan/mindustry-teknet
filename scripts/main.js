@@ -33,10 +33,8 @@ Events.on(ClientLoadEvent, () => {
 
     teknet.defaultCore = Blocks.coreShard; 
 
-    teknet.rules = () => {
-        let r = new Rules();
+    teknet.ruleSetter = r => {
         r.coreDestroyClear = true;
-        return r;
     };
 
     teknet.meshLoader = () => {
