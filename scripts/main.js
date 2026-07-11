@@ -1,4 +1,3 @@
-// 1. Create the Planet Generator
 const teknetGenerator = extend(PlanetGenerator, {
     generateSector(sector) {},
     getHeight(position) {
@@ -6,6 +5,9 @@ const teknetGenerator = extend(PlanetGenerator, {
     },
     generateTiles(tiles) {}
 });
+
+const whitelistSeq = new Seq();
+whitelistSeq.add(Items.copper);
 
 const teknet = extend(Planet, "teknet", Planets.sun, 1, {
     alwaysUnlocked: true,
@@ -41,7 +43,7 @@ const teknet = extend(Planet, "teknet", Planets.sun, 1, {
     enemyCoreSpawnReplace: false,
     updateLighting: true,
     launchCandidates: Seq.with(),
-    itemWhitelist: Seq.with(Items.copper) 
+    itemWhitelist: whitelistSeq
 });
 
 teknet.generator = teknetGenerator;
@@ -130,7 +132,7 @@ Events.on(ContentInitEvent, e => {
         props.color, props.octaves, props.persistence, props.scl, props.thresh
     ));
     //#endregion
-    
+
     let javaMeshArray = java.lang.reflect.Array.newInstance(GenericMesh, meshList.length);
     for(let i = 0; i < meshList.length; i++){
         javaMeshArray[i] = meshList[i];
