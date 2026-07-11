@@ -1,142 +1,80 @@
-const teknetGenerator = extend(PlanetGenerator, {
-    generateSector(sector) {},
-    getHeight(position) {
-        return 0; 
-    },
-    generateTiles(tiles) {}
-});
+Events.on(ClientLoadEvent, () => {
+    const teknet = new Planet("teknet", Planets.sun, 1.2);
 
-const whitelistSeq = new Seq();
-whitelistSeq.add(Items.copper);
+    teknet.alwaysUnlocked = true;
+    teknet.accessible = true;
+    teknet.visible = true;
+    teknet.iconColor = Color.valueOf("007A02");
+    teknet.hasAtmosphere = true;
+    teknet.atmosphereColor = Color.valueOf("ffffff");
+    teknet.bloom = false;
+    teknet.atmosphereRadIn = 0.02;
+    teknet.atmosphereRadOut = 0.3;
+    teknet.startSector = 0;
+    teknet.sectorSize = 3;
+    teknet.sectorSeed = 10;
+    teknet.drawOrbit = true;
+    teknet.orbitRadius = 47.5;
+    teknet.orbitTime = 327159.22;
+    teknet.minZoom = 1;
+    teknet.clearSectorOnLose = true;
+    teknet.enemyCoreSpawnReplace = false;
+    teknet.updateLighting = true;
 
-const teknet = extend(Planet, "teknet", Planets.sun, 1, {
-    alwaysUnlocked: true,
-    accessible: true,   
-    visible: true,
-    allowCampaignRules: true,
-    allowLaunchLoadout: true,
-    allowLaunchSchematics: true,
-    allowLaunchToNumbered: true,
-    allowLegacyLaunchPads: false,
-    allowSectorInvasion: false,
-    allowSelfSectorLaunch: false,
-    allowWaves: true,
-    iconColor: Color.valueOf("#007A02"),
-    hasAtmosphere: true,
-    atmosphereColor: Color.valueOf("#ffffff"),
-    bloom: false,
-    atmosphereRadIn: 0.02,
-    atmosphereRadOut: 0.3,
-    startSector: 0,
-    sectorSize: 3,
-    sectorSeed: 10,
-    parent: Planets.sun,
-    solarSystem: Planets.sun,
-    drawOrbit: true,
-    orbitRadius: 47.5,
-    orbitTime: 327159.22,
-    radius: 1.2,
-    minZoom: 1,
-    prebuildBase: true,
-    clearSectorOnLose: false,
-    defaultCore: Blocks.coreShard,
-    enemyCoreSpawnReplace: false,
-    updateLighting: true,
-    launchCandidates: Seq.with(),
-    itemWhitelist: whitelistSeq
-});
-
-teknet.generator = teknetGenerator;
-teknet.meshLoader = () => teknet.mesh; 
-
-teknet.grid = PlanetGrid.create(3); 
-
-teknet.sectors.add(new Sector(teknet, teknet.grid.tiles[0]));
-
-Events.on(ContentInitEvent, e => {
-    let meshList = [];
-    let props;
-
-    //#region Ice
-    props = {
-        seed: 7, divisions: 5, radius: 1.229, octaves: 4, persistence: 1.1, scale: 1, mag: 1,
-        color1: Color.valueOf("#F0F0F0"), color2: Color.valueOf("#DCF2FF"),
-        colorOct: 1, colorPersi: 1, colorScale: 1, colorThres: 0.5
+    teknet.allowCampaignRules = true;
+    teknet.allowLaunchLoadout = false;
+    teknet.allowLaunchSchematics = false;
+    teknet.allowLaunchToNumbered = false;
+    teknet.allowLegacyLaunchPads = false;
+    teknet.allowSectorInvasion = false;
+    teknet.allowSelfSectorLaunch = false;
+    teknet.allowWaves = true;
+    teknet.prebuildBase = false;
+    teknet.showRtsAIRule = true;
+    teknet.defaultCore = Blocks.coreShard; 
+    teknet.rules = () => {
+        let r = new Rules();
+        r.coreDestroyClear = true;
+        return r;
     };
-    meshList.push(new NoiseMesh(
-        teknet, props.seed, props.divisions, props.radius, props.octaves,
-        props.persistence, props.scale, props.mag, props.color1, props.color2,
-        props.colorOct, props.colorPersi, props.colorScale, props.colorThres
-    ));
-    //#endregion
 
-    //#region Rock
-    props = {
-        seed: 94, divisions: 5, radius: 1.22, octaves: 4, persistence: 0.6, scale: 1, mag: 0.5,
-        color1: Color.valueOf("#878787"), color2: Color.valueOf("#6B6B6B"),
-        colorOct: 1, colorPersi: 0.5, colorScale: 1, colorThres: 0.5
+    teknet.meshLoader = () => {
+        return MultiMesh(
+            // Ice
+            new NoiseMesh(teknet, 7, 5, 1.229, 3.7, 1.1, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF")),
+            // Rock
+            new NoiseMesh(teknet, 94, 5, 1.22, 3.7, 0.6, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B")),
+            // Water
+            new NoiseMesh(teknet, 101, 6, 1.2441, 5.1, 0.8, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA")),
+            // Grass - GO TOUCH IT
+            new NoiseMesh(teknet, 69, 5, 1.212, 4.0, 1.0, 0.75, Color.valueOf("42693A"), Color.valueOf("5F8A4A")),
+            // Sand
+            new NoiseMesh(teknet, 19, 5, 1.247, 4.5, 1.1, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"))
+        );
     };
-    meshList.push(new NoiseMesh(
-        teknet, props.seed, props.divisions, props.radius, props.octaves,
-        props.persistence, props.scale, props.mag, props.color1, props.color2,
-        props.colorOct, props.colorPersi, props.colorScale, props.colorThres
-    ));
-    //#endregion
 
-    //#region Water
-    props = {
-        seed: 101, divisions: 6, radius: 1.2441, octaves: 5, persistence: 0.8, scale: 1, mag: 0,
-        color1: Color.valueOf("#486ACD"), color2: Color.valueOf("#7090EA"),
-        colorOct: 1, colorPersi: 0.5, colorScale: 1, colorThres: 0.5
+    // Clouds
+    teknet.cloudMeshLoader = () => {
+        return new HexSkyMesh(teknet, 6, 0.05, 0.16, 2, Color.valueOf("ffffffaa"), 0.45, 1.0, 0.41);
     };
-    meshList.push(new NoiseMesh(
-        teknet, props.seed, props.divisions, props.radius, props.octaves,
-        props.persistence, props.scale, props.mag, props.color1, props.color2,
-        props.colorOct, props.colorPersi, props.colorScale, props.colorThres
-    ));
-    //#endregion
+    const gen = new PlanetGenerator();
+    gen.octaves = 3;
+    gen.persistence = 0.52;
+    gen.scale = 22;
+    gen.mag = 0.721;
+    gen.thresh = 1.152;
+    gen.min = 100;
+    gen.max = 100;
+    gen.radMin = 220;
+    gen.radMax = 600;
+    gen.iceChance = 0.51;
+    gen.carbonChance = 0.32;
+    gen.berylChance = 0;
+    gen.ferricChance = 0.26;
+    
+    teknet.generator = gen;
 
-    //#region Grass
-    props = {
-        seed: 69, divisions: 5, radius: 1.212, octaves: 4, persistence: 1, scale: 0.75, mag: 1,
-        color1: Color.valueOf("#42693A"), color2: Color.valueOf("#5F8A4A"),
-        colorOct: 1, colorPersi: 0.5, colorScale: 1, colorThres: 0.5
-    };
-    meshList.push(new NoiseMesh(
-        teknet, props.seed, props.divisions, props.radius, props.octaves,
-        props.persistence, props.scale, props.mag, props.color1, props.color2,
-        props.colorOct, props.colorPersi, props.colorScale, props.colorThres
-    ));
-    //#endregion
+    teknet.itemWhitelist.addAll(Items.copper);
 
-    //#region Sand
-    props = {
-        seed: 19, divisions: 5, radius: 1.247, octaves: 4, persistence: 1.1, scale: 1, mag: 0.5,
-        color1: Color.valueOf("#F7CBA4"), color2: Color.valueOf("#D3AE8D"),
-        colorOct: 1, colorPersi: 0.5, colorScale: 1, colorThres: 0.5
-    };
-    meshList.push(new NoiseMesh(
-        teknet, props.seed, props.divisions, props.radius, props.octaves,
-        props.persistence, props.scale, props.mag, props.color1, props.color2,
-        props.colorOct, props.colorPersi, props.colorScale, props.colorThres
-    ));
-    //#endregion
-
-    //#region Clouds
-    props = {
-        seed: 0, speed: 1.2, radius: 0.16, divisions: 6, color: Color.valueOf("#ffffffaa"),
-        octaves: 2, persistence: 0.45, scl: 1.0, thresh: 0.41
-    };
-    meshList.push(new HexSkyMesh(
-        teknet, props.seed, props.speed, props.radius, props.divisions,
-        props.color, props.octaves, props.persistence, props.scl, props.thresh
-    ));
-    //#endregion
-
-    let javaMeshArray = java.lang.reflect.Array.newInstance(GenericMesh, meshList.length);
-    for(let i = 0; i < meshList.length; i++){
-        javaMeshArray[i] = meshList[i];
-    }
-
-    teknet.mesh = new MultiMesh(javaMeshArray);
+    teknet.initialize();
 });
