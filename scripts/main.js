@@ -46,7 +46,6 @@ const teknet = extend(Planet, "teknet", Planets.sun, 1, {
 teknet.generator = teknetGenerator;
 teknet.meshLoader = () => teknet.mesh; 
 teknet.grid = PlanetGrid.create(3);
-teknet.initialize();
 
 Events.on(ContentInitEvent, e => {
     let meshList = [];
