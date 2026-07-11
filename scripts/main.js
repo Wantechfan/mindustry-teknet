@@ -1,7 +1,7 @@
 Events.on(ClientLoadEvent, () => {
-    const MultiMesh = Packages.mindustry.graphics.g3d.MultiMesh;
     const NoiseMesh = Packages.mindustry.graphics.g3d.NoiseMesh;
     const HexSkyMesh = Packages.mindustry.graphics.g3d.HexSkyMesh;
+    const Mesh = Packages.mindustry.graphics.g3d.Mesh;
 
     const teknet = new Planet("teknet", Planets.sun, 1.2, 3); 
     teknet.alwaysUnlocked = true;
@@ -22,6 +22,8 @@ Events.on(ClientLoadEvent, () => {
     teknet.clearSectorOnLose = true;
     teknet.enemyCoreSpawnReplace = false;
     teknet.updateLighting = true;
+
+    // 3. Campaign / Rules
     teknet.allowCampaignRules = true;
     teknet.allowLaunchLoadout = false;
     teknet.allowLaunchSchematics = false;
@@ -40,15 +42,18 @@ Events.on(ClientLoadEvent, () => {
     };
 
     teknet.meshLoader = () => {
-        let meshArray = java.lang.reflect.Array.newInstance(Packages.mindustry.graphics.g3d.Mesh, 5);
-        
-        meshArray[0] = new NoiseMesh(teknet, 7, 5, 1.229, 4, 1.1, 1.0, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF"));
-        meshArray[1] = new NoiseMesh(teknet, 94, 5, 1.22, 4, 0.6, 1.0, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B"));
-        meshArray[2] = new NoiseMesh(teknet, 101, 6, 1.2441, 5, 0.8, 1.0, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA"));
-        meshArray[3] = new NoiseMesh(teknet, 69, 5, 1.212, 4, 1.0, 0.75, 1.0, Color.valueOf("42693A"), Color.valueOf("5F8A4A"));
-        meshArray[4] = new NoiseMesh(teknet, 19, 5, 1.247, 5, 1.1, 1.0, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"));
+        const m1 = new NoiseMesh(teknet, 7, 5, 1.229, 4, 1.1, 1.0, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF"));
+        const m2 = new NoiseMesh(teknet, 94, 5, 1.22, 4, 0.6, 1.0, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B"));
+        const m3 = new NoiseMesh(teknet, 101, 6, 1.2441, 5, 0.8, 1.0, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA"));
+        const m4 = new NoiseMesh(teknet, 69, 5, 1.212, 4, 1.0, 0.75, 1.0, Color.valueOf("42693A"), Color.valueOf("5F8A4A"));
+        const m5 = new NoiseMesh(teknet, 19, 5, 1.247, 5, 1.1, 1.0, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"));
 
-        return new MultiMesh(meshArray);
+        const meshes = [m1, m2, m3, m4, m5];
+        return new Mesh({
+            render(instance, transform) {
+                meshes.forEach(m => m.render(instance, transform));
+            }
+        });
     };
 
     teknet.cloudMeshLoader = () => {
