@@ -105,7 +105,7 @@ allowSectorInvasion: false
 allowSelfSectorLaunch: false
 allowWaves: true
 
-iconColor: 666359
+iconColor: 007A02
 hasAtmosphere: true
 atmosphereColor: ffffff
 bloom: false
