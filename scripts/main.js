@@ -1,4 +1,4 @@
-const teknetGenerator = extend(AreniPlanetGenerator, {
+const teknetGenerator = extend(SerpuloPlanetGenerator, {
     minGridSize: 3,
     maxGridSize: 3,
     hexGrid: new HexGrid()
