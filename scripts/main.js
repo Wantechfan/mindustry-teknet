@@ -51,7 +51,7 @@ teknet.meshLoader = () => teknet.mesh;
 
 teknet.grid = PlanetGrid.create(3); 
 
-teknet.sectors.add(new Sector(teknet, teknet.grid.getTile(0)));
+teknet.sectors.add(new Sector(teknet, teknet.grid.tiles[0]));
 
 Events.on(ContentInitEvent, e => {
     let meshList = [];
