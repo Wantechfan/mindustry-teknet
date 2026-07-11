@@ -1,9 +1,14 @@
 Events.on(ClientLoadEvent, () => {
+    // Correct package definitions
+    const MultiMesh = Packages.mindustry.graphics.g3d.MultiMesh;
     const NoiseMesh = Packages.mindustry.graphics.g3d.NoiseMesh;
     const HexSkyMesh = Packages.mindustry.graphics.g3d.HexSkyMesh;
-    const Mesh = Packages.mindustry.graphics.g3d.Mesh;
+    const GenericMesh = Packages.mindustry.graphics.g3d.GenericMesh;
 
+    // 1. Create the planet instance
     const teknet = new Planet("teknet", Planets.sun, 1.2, 3); 
+
+    // 2. Assign the general properties
     teknet.alwaysUnlocked = true;
     teknet.accessible = true;
     teknet.visible = true;
@@ -41,25 +46,25 @@ Events.on(ClientLoadEvent, () => {
         r.coreDestroyClear = true;
     };
 
+    // 4. Mesh Loader (FIXED: Using standard Java array generation with GenericMesh)
     teknet.meshLoader = () => {
-        const m1 = new NoiseMesh(teknet, 7, 5, 1.229, 4, 1.1, 1.0, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF"));
-        const m2 = new NoiseMesh(teknet, 94, 5, 1.22, 4, 0.6, 1.0, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B"));
-        const m3 = new NoiseMesh(teknet, 101, 6, 1.2441, 5, 0.8, 1.0, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA"));
-        const m4 = new NoiseMesh(teknet, 69, 5, 1.212, 4, 1.0, 0.75, 1.0, Color.valueOf("42693A"), Color.valueOf("5F8A4A"));
-        const m5 = new NoiseMesh(teknet, 19, 5, 1.247, 5, 1.1, 1.0, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"));
+        let meshArray = java.lang.reflect.Array.newInstance(GenericMesh, 5);
+        
+        meshArray[0] = new NoiseMesh(teknet, 7, 5, 1.229, 4, 1.1, 1.0, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF"));
+        meshArray[1] = new NoiseMesh(teknet, 94, 5, 1.22, 4, 0.6, 1.0, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B"));
+        meshArray[2] = new NoiseMesh(teknet, 101, 6, 1.2441, 5, 0.8, 1.0, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA"));
+        meshArray[3] = new NoiseMesh(teknet, 69, 5, 1.212, 4, 1.0, 0.75, 1.0, Color.valueOf("42693A"), Color.valueOf("5F8A4A"));
+        meshArray[4] = new NoiseMesh(teknet, 19, 5, 1.247, 5, 1.1, 1.0, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"));
 
-        const meshes = [m1, m2, m3, m4, m5];
-        return new Mesh({
-            render(instance, transform) {
-                meshes.forEach(m => m.render(instance, transform));
-            }
-        });
+        return new MultiMesh(meshArray);
     };
 
+    // 5. Cloud Mesh Loader
     teknet.cloudMeshLoader = () => {
         return new HexSkyMesh(teknet, 6, 0.05, 0.16, 2, Color.valueOf("ffffffaa"), 0.45, 1.0, 0.41);
     };
 
+    // 6. Planet Generator Configuration
     const gen = new PlanetGenerator();
     gen.octaves = 3;
     gen.persistence = 0.52;
@@ -77,6 +82,7 @@ Events.on(ClientLoadEvent, () => {
     
     teknet.generator = gen;
 
+    // 7. Whitelists
     teknet.itemWhitelist.addAll(Items.copper);
 
     // 8. Initialize planet
