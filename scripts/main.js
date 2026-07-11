@@ -1,6 +1,5 @@
 Events.on(ClientLoadEvent, () => {
-    const teknet = new Planet("teknet", Planets.sun, 1.2, 3); 
-
+    const teknet = new Planet("teknet", Planets.sun, 1.2, 3);
     teknet.alwaysUnlocked = true;
     teknet.accessible = true;
     teknet.visible = true;
@@ -19,7 +18,6 @@ Events.on(ClientLoadEvent, () => {
     teknet.clearSectorOnLose = true;
     teknet.enemyCoreSpawnReplace = false;
     teknet.updateLighting = true;
-
     teknet.allowCampaignRules = true;
     teknet.allowLaunchLoadout = false;
     teknet.allowLaunchSchematics = false;
@@ -30,15 +28,13 @@ Events.on(ClientLoadEvent, () => {
     teknet.allowWaves = true;
     teknet.prebuildBase = false;
     teknet.showRtsAIRule = true;
-
-    teknet.defaultCore = Blocks.coreShard; 
-
+    teknet.defaultCore = Blocks.coreShard;
     teknet.ruleSetter = r => {
         r.coreDestroyClear = true;
     };
 
     teknet.meshLoader = () => {
-        return MultiMesh(
+        return new MultiMesh(
             new NoiseMesh(teknet, 7, 5, 1.229, 3.7, 1.1, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF")),
             new NoiseMesh(teknet, 94, 5, 1.22, 3.7, 0.6, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B")),
             new NoiseMesh(teknet, 101, 6, 1.2441, 5.1, 0.8, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA")),
@@ -67,7 +63,9 @@ Events.on(ClientLoadEvent, () => {
     gen.ferricChance = 0.26;
     
     teknet.generator = gen;
+
     teknet.itemWhitelist.addAll(Items.copper);
 
+    // 8. Initialize
     teknet.initialize();
 });
