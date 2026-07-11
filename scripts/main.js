@@ -40,7 +40,7 @@ const teknet = extend(Planet, "teknet", Planets.sun, 1, {
     defaultCore: Blocks.coreShard,
     enemyCoreSpawnReplace: false,
     updateLighting: true,
-    launchCandidates: [],
+    launchCandidates: Seq.with(),
     itemWhitelist: Seq.with(Items.copper) 
 });
 
