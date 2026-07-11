@@ -1,8 +1,4 @@
-const teknetGenerator = extend(SerpuloPlanetGenerator, {
-    minGridSize: 3,
-    maxGridSize: 3,
-    hexGrid: new HexGrid()
-});
+const teknetGenerator = extend(SerpuloPlanetGenerator, {});
 
 const teknet = extend(Planet, "teknet", Planets.sun, 1, {
     alwaysUnlocked: true,
