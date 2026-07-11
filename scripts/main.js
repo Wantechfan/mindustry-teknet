@@ -1,5 +1,5 @@
 Events.on(ClientLoadEvent, () => {
-    const teknet = new Planet("teknet", Planets.sun, 1.2);
+    const teknet = new Planet("teknet", Planets.sun, 1.2, 3); 
 
     teknet.alwaysUnlocked = true;
     teknet.accessible = true;
@@ -11,7 +11,6 @@ Events.on(ClientLoadEvent, () => {
     teknet.atmosphereRadIn = 0.02;
     teknet.atmosphereRadOut = 0.3;
     teknet.startSector = 0;
-    teknet.sectorSize = 3;
     teknet.sectorSeed = 10;
     teknet.drawOrbit = true;
     teknet.orbitRadius = 47.5;
@@ -31,7 +30,9 @@ Events.on(ClientLoadEvent, () => {
     teknet.allowWaves = true;
     teknet.prebuildBase = false;
     teknet.showRtsAIRule = true;
+
     teknet.defaultCore = Blocks.coreShard; 
+
     teknet.rules = () => {
         let r = new Rules();
         r.coreDestroyClear = true;
@@ -40,23 +41,18 @@ Events.on(ClientLoadEvent, () => {
 
     teknet.meshLoader = () => {
         return MultiMesh(
-            // Ice
             new NoiseMesh(teknet, 7, 5, 1.229, 3.7, 1.1, 1.0, Color.valueOf("F0F0F0"), Color.valueOf("DCF2FF")),
-            // Rock
             new NoiseMesh(teknet, 94, 5, 1.22, 3.7, 0.6, 1.0, Color.valueOf("878787"), Color.valueOf("6B6B6B")),
-            // Water
             new NoiseMesh(teknet, 101, 6, 1.2441, 5.1, 0.8, 1.0, Color.valueOf("486ACD"), Color.valueOf("7090EA")),
-            // Grass - GO TOUCH IT
             new NoiseMesh(teknet, 69, 5, 1.212, 4.0, 1.0, 0.75, Color.valueOf("42693A"), Color.valueOf("5F8A4A")),
-            // Sand
             new NoiseMesh(teknet, 19, 5, 1.247, 4.5, 1.1, 1.0, Color.valueOf("F7CBA4"), Color.valueOf("D3AE8D"))
         );
     };
 
-    // Clouds
     teknet.cloudMeshLoader = () => {
         return new HexSkyMesh(teknet, 6, 0.05, 0.16, 2, Color.valueOf("ffffffaa"), 0.45, 1.0, 0.41);
     };
+
     const gen = new PlanetGenerator();
     gen.octaves = 3;
     gen.persistence = 0.52;
@@ -73,7 +69,6 @@ Events.on(ClientLoadEvent, () => {
     gen.ferricChance = 0.26;
     
     teknet.generator = gen;
-
     teknet.itemWhitelist.addAll(Items.copper);
 
     teknet.initialize();
