@@ -1,5 +1,5 @@
 Log.info("Is it actually loading it");
-/*const coreMulet = extend(CoreBlock, "coreMulet", {
+const coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
     health: 3000,
     itemCapacity: 3000,
@@ -10,9 +10,9 @@ Log.info("Is it actually loading it");
         this.region = Core.atlas.find(this.name);
         this.teamRegion = Core.atlas.find(this.name + "-team");
     }
-});*/
+});
 
 Log.info("It works down here");
-/*coreMulet.category = Category.effect;
+coreMulet.category = Category.effect;
 coreMulet.buildVisibility = BuildVisibility.shown;
-coreMulet.requirements = ItemStack.with(Items.surgeAlloy, 1);*/
+coreMulet.requirements = ItemStack.with(Items.surgeAlloy, 1);
