@@ -6,8 +6,8 @@ const coreMulet = extend(CoreBlock, "coreMulet", {
 
     load() {
         this.super$load();
-        this.region = Core.atlas.find(this.mod.name + "-effect-" + this.name);
-        this.teamRegion = Core.atlas.find(this.mod.name + "-effect-" + this.name + "-team");
+        this.region = Core.atlas.find(this.name);
+        this.teamRegion = Core.atlas.find(this.name + "-team");
     }
 });
 
