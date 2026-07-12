@@ -1,4 +1,4 @@
-Log.info("Is it actually loading it")
+Log.info("Is it actually loading it");
 /*const coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
     health: 3000,
@@ -12,7 +12,7 @@ Log.info("Is it actually loading it")
     }
 });*/
 
-Log.info("It works down here")
+Log.info("It works down here");
 /*coreMulet.category = Category.effect;
 coreMulet.buildVisibility = BuildVisibility.shown;
 coreMulet.requirements = ItemStack.with(Items.surgeAlloy, 1);*/
