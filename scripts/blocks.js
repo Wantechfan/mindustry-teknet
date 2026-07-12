@@ -11,7 +11,6 @@ const coreMulet = extend(CoreBlock, "coreMulet", {
     }
 });
 
-Log.info("If works up here")
 coreMulet.category = Category.effect;
 coreMulet.buildVisibility = BuildVisibility.shown;
 coreMulet.requirements = ItemStack.with(Items.surgeAlloy, 1);
