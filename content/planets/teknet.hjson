@@ -141,7 +141,7 @@ enemyCoreSpawnReplace: false
 updateLighting: true
 
 launchCandidates: []
-itemWhitelist: [
+itemWhiteList: [
   //replace
   copper
 ]
