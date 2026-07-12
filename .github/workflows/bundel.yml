@@ -1,6 +1,10 @@
 # Script by Anuke
 name: Tests
-on: [push, workflow_dispatch]
+on:
+  push:
+    paths:
+      - 'bundles/bundle.properties'
+  workflow_dispatch:
 permissions: {}
 jobs:
   runPush:
@@ -17,9 +21,9 @@ jobs:
           if [ -n "$(git status --porcelain)" ]; then
             git config --global user.name "Github Actions"
             git config --global user.email "actions@github.com"
-            git add bundles/*
+            git add bundles/
             git commit -m "Auto bandel apdet"
             git push
           else
-            echo "No line diff in bandel found."
+            echo "No diff ig."
           fi
