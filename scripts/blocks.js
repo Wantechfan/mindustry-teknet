@@ -4,11 +4,11 @@ const coreMulet = extend(CoreBlock, "coreMulet", {
     itemCapacity: 3000,
     unitType: UnitTypes.eclipse, // Change later
 
-    load() {
+    /*load() {
         this.super$load();
         this.region = Core.atlas.find(this.name);
         this.teamRegion = Core.atlas.find(this.name + "-team");
-    }
+    }*/
 });
 
 coreMulet.category = Category.effect;
