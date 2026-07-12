@@ -4,13 +4,14 @@ const coreMulet = extend(CoreBlock, "coreMulet", {
     itemCapacity: 3000,
     unitType: UnitTypes.eclipse, // Change later
 
-    /*load() {
+    load: function() {
         this.super$load();
         this.region = Core.atlas.find(this.name);
         this.teamRegion = Core.atlas.find(this.name + "-team");
-    }*/
+    }
 });
 
+Log.info("If works up here")
 coreMulet.category = Category.effect;
 coreMulet.buildVisibility = BuildVisibility.shown;
 coreMulet.requirements = ItemStack.with(Items.surgeAlloy, 1);
