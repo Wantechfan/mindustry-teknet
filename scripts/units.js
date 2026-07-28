@@ -10,7 +10,7 @@ let Jepel = extend(UnitType, "jepel", {
         this.legBaseRegion = Core.atlas.find(this.name + "-leg-base");
         this.legRegion = Core.atlas.find(this.name + "-leg"); 
         this.uiIcon = Core.atlas.find(this.name + "-ui"); 
-        this.region = Core.atlas.find(this.name + "-base");
+        this.region = Core.atlas.find(this.name);
     } 
 }); 
 
