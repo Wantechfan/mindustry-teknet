@@ -25,13 +25,14 @@ jepel.stepSound = Sounds.walkerStepTiny;
 jepel.targetAir = true;
 jepel.targetGround = true;
 
-jepel.legs = 6; 
+jepel.legCount = 6; 
 jepel.legGroupSize = 3;
 jepel.legLength = 5; 
 jepel.legSpeed = 0.3; 
 jepel.legExtension = -2; 
 jepel.legPairOffset = 3; 
 jepel.legBaseOffset = 3; 
+jepel.legContinousMove = true;
 
 let jepelGunBullet = extend(ArtilleryBulletType, {
     lifetime: 46,
