@@ -34,9 +34,9 @@ jepel.legPairOffset = 3;
 jepel.legBaseOffset = 3; 
 
 let jepelGunBullet = extend(ArtilleryBulletType, {
-    lifetime = 46,
-    splashDamage = 30,
-    splashDamageRadius = 19,
+    lifetime: 46,
+    splashDamage: 30,
+    splashDamageRadius: 19,
 });
 
 let jepelGun = extend(Weapon, "jepel-gun", {
