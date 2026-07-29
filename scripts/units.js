@@ -33,7 +33,7 @@ jepel.legExtension = -2;
 jepel.legPairOffset = 3; 
 jepel.legBaseOffset = 3; 
 
-let jepelGunBullet = new ArtilleryBulletType({
+let jepelGunBullet = extend(ArtilleryBulletType, {
     lifetime = 46,
     splashDamage = 30,
     splashDamageRadius = 19,
