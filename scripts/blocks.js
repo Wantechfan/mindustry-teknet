@@ -1,4 +1,4 @@
-const coreMulet = extend(CoreBlock, "coreMulet", {
+let coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
     health: 3000,
     itemCapacity: 3000,

@@ -1,4 +1,4 @@
-let Jepel = extend(UnitType, "jepel", { 
+let jepel = extend(UnitType, "jepel", { 
     load() { 
         this.super$load(); 
         this.baseRegion = Core.atlas.find(this.name + "-base"); 
@@ -14,30 +14,37 @@ let Jepel = extend(UnitType, "jepel", {
     } 
 }); 
 
-Jepel.constructor = () => extend(LegsUnit, {}); 
+jepel.constructor = () => extend(LegsUnit, {}); 
 
-Jepel.health = 175; 
-Jepel.speed = 0.5;
-Jepel.hitSize = 12; 
-Jepel.allowLegStep = true; 
-Jepel.outlineColor = Color.valueOf("253826");
-Jepel.stepSound = Sounds.walkerStepTiny;
+jepel.health = 175; 
+jepel.speed = 0.5;
+jepel.hitSize = 12; 
+jepel.allowLegStep = true; 
+jepel.outlineColor = Color.valueOf("253826");
+jepel.stepSound = Sounds.walkerStepTiny;
+jepel.targetAir = true;
+jepel.targetGround = true;
 
-Jepel.legs = 6; 
-Jepel.legLength = 8; 
-Jepel.legSpeed = 0.3; 
-Jepel.legExtension = 3; 
-Jepel.legPairOffset = 3; 
-Jepel.legBaseOffset = 5; 
+jepel.legs = 6; 
+jepel.legGroupSize = 3;
+jepel.legLength = 5; 
+jepel.legSpeed = 0.3; 
+jepel.legExtension = -2; 
+jepel.legPairOffset = 3; 
+jepel.legBaseOffset = 3; 
 
-let jepelGunBullet = new ArtilleryBulletType();
+let jepelGunBullet = new ArtilleryBulletType({
+    lifetime = 46,
+    splashDamage = 30,
+    splashDamageRadius = 19,
+});
 
 let jepelGun = extend(Weapon, "jepel-gun", {
     reload: 5,
     x: 0,
-    y: 0,
+    y: 1,
     shootSound: Sounds.wind3,
     bullet: jepelGunBullet
 });
 
-Jepel.weapons.add(jepelGun);
+jepel.weapons.add(jepelGun);
