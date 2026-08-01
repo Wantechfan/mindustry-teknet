@@ -27,7 +27,7 @@ jepel.targetGround = true;
 
 jepel.legCount = 6; 
 jepel.legGroupSize = 3;
-jepel.legLength = 5; 
+jepel.legLength = 7; 
 jepel.legSpeed = 0.3; 
 jepel.legExtension = -2; 
 jepel.legPairOffset = 3; 
