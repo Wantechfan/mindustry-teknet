@@ -1,4 +1,4 @@
-import { jepel } from './blocks.js';
+import { jepel } from './units.js';
 let coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
     health: 3000,
