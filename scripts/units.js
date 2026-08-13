@@ -1,4 +1,4 @@
-let jepel = extend(UnitType, "jepel", { 
+export let jepel = extend(UnitType, "jepel", { 
     load() { 
         this.super$load(); 
         this.baseRegion = Core.atlas.find(this.name + "-base"); 
