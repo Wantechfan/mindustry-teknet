@@ -1,8 +1,9 @@
+import { jepel } from './blocks.js';
 let coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
     health: 3000,
     itemCapacity: 3000,
-    unitType: UnitTypes.dagger, // Change later
+    unitType: jepel, // Change later
 
     load() {
         this.super$load();
