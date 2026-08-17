@@ -1,10 +1,10 @@
-const jepel = require("jepel")
+const jepel = require("units")
 
 let coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
     health: 3000,
     itemCapacity: 3000,
-    unitType: jepel
+    unitType: units.jepel
 });
 
 coreMulet.category = Category.effect;
