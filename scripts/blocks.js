@@ -1,4 +1,4 @@
-import { jepel } from './units.js';
+const jepel = require("jepel")
 
 let coreMulet = extend(CoreBlock, "coreMulet", {
     size: 3,
